@@ -14,6 +14,11 @@ class Game:
     def open_spot(self, column):
         return self.board[self.row_count-1][column] == 0
 
+    def get_row(self, col):
+        for i in range(self.row_count):
+            if self.board[i][col] == 0:
+                return i
+
     def play(self, row, col, move):
         self.board[row][col] = move
 
@@ -46,15 +51,24 @@ input()
 finished = False
 turn = 0 
 
-connect = Game(num_games)
+connect = Game()
 connect.create_game()
 
 while not finished:
     if turn % 2 == 0:
         current_player = "player1"
-        piece = "x"
+        piece = 1
+        print(connect.create_game())
+        move = int(input("Where do you want to drop player 1? (1-6)")) -1
+        if connect.open_spot(move):
+            row = connect.get_row(move)
+            connect.play(row, move, piece)
+            print(connect.create_game())
     else:
         current_player = "player2"
-        piece = "o"
-    if connect.open_spot(int(input("Where do you want to drop? (1-6)"))) == True:
-        connect.play()
+        piece = 2
+        move = int(input("Where do you want to drop player 2? (1-6)")) -1
+        if connect.open_spot(move):
+            row = connect.get_row(move)
+            connect.play(row, move, piece)
+    turn += 1
