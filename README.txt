@@ -1,2 +1,2 @@
 Connect Four project:
-1) 
+This project is for my online code academy class, I have always loved connect four for some unknown reasson so it was an easy choice as to what i wanted to make with python. It proved to be overwhelming at first but since I am a college student in CS, I had many references to help me. The format is the main issue right now I know I could use pygame but I want to hold off until I learn machine learning techinques.
