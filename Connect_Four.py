@@ -54,6 +54,7 @@ turn = 0
 connect = Game()
 connect.create_game()
 print(connect.create_game())
+
 while not finished:
 
     if turn == 0:
