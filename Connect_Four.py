@@ -19,29 +19,29 @@ class Game:
             if self.board[i][col] == 0:
                 return i
 
-    def play(self, row, col, move):
-        self.board[row][col] = move
+    def play(self, row, move, piece):
+        self.board[row][move] = piece
 
     def check_win(self, move):
                                                                     #checks vertical
         for c in range(self.column_count):
-            for r in range(self.row_count):
-                if self.board[r][c] == move and self.board[r+1][c] and self.board[r+2][c] == move and self.board[r+3][c] == move:
+            for r in range(self.row_count-3):
+                if self.board[r][c] == piece and self.board[r+1][c] and self.board[r+2][c] == piece and self.board[r+3][c] == piece:
                     return True
                                                                     #checks horizontal
-        for c in range(self.column_count):
+        for c in range(self.column_count-3):
             for r in range(self.row_count):
-                if self.board[r][c] == move and self.board[r][c+1] and self.board[r][c+2] == move and self.board[r][c+3] == move:
+                if self.board[r][c] == piece and self.board[r][c+1] and self.board[r][c+2] == piece and self.board[r][c+3] == piece:
                     return True   
                                                                     #checks left to right diaganol 
-        for c in range(self.column_count):
-            for r in range(self.row_count):
-                if self.board[r][c] == move and self.board[r+1][c+1] and self.board[r+2][c+2] == move and self.board[r+3][c+3] == move:
+        for c in range(self.column_count-3):
+            for r in range(self.row_count-3):
+                if self.board[r][c] == piece and self.board[r+1][c+1] and self.board[r+2][c+2] == piece and self.board[r+3][c+3] == piece:
                     return True
-        
-        for c in range(self.column_count):
-            for r in range(self.row_count):
-                if self.board[r][c] == move and self.board[r-1][c+1] and self.board[r-2][c+2] == move and self.board[r-3][c+3] == move:
+                                                                    #checks right to left diaganol
+        for c in range(self.column_count-3):
+            for r in range(3, self.row_count):
+                if self.board[r][c] == piece and self.board[r-1][c+1] and self.board[r-2][c+2] == piece and self.board[r-3][c+3] == piece:
                     return True
 
 #Setup player(s)
@@ -53,17 +53,21 @@ turn = 0
 
 connect = Game()
 connect.create_game()
-
+print(connect.create_game())
 while not finished:
-    if turn % 2 == 0:
+
+    if turn == 0:
         current_player = "player1"
         piece = 1
-        print(connect.create_game())
         move = int(input("Where do you want to drop player 1? (1-6)")) -1
         if connect.open_spot(move):
             row = connect.get_row(move)
             connect.play(row, move, piece)
             print(connect.create_game())
+            if connect.check_win(move):
+                print(current_player + " Wins!")
+                finished = True
+        
     else:
         current_player = "player2"
         piece = 2
@@ -71,4 +75,10 @@ while not finished:
         if connect.open_spot(move):
             row = connect.get_row(move)
             connect.play(row, move, piece)
+            print(connect.create_game())
+            if connect.check_win(move):
+                print(current_player + " Wins!")
+                finished = True
+
     turn += 1
+    turn = turn % 2
