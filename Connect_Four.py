@@ -22,7 +22,7 @@ class Game:
     def play(self, row, move, piece):
         self.board[row][move] = piece
 
-    def check_win(self, move):
+    def check_win(self):
                                                                     #checks vertical
         for c in range(self.column_count):
             for r in range(self.row_count-3):
@@ -64,7 +64,7 @@ while not finished:
             row = connect.get_row(move)
             connect.play(row, move, piece)
             print(connect.create_game())
-            if connect.check_win(move):
+            if connect.check_win():
                 print(current_player + " Wins!")
                 finished = True
         
@@ -76,7 +76,7 @@ while not finished:
             row = connect.get_row(move)
             connect.play(row, move, piece)
             print(connect.create_game())
-            if connect.check_win(move):
+            if connect.check_win():
                 print(current_player + " Wins!")
                 finished = True
 
